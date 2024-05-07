@@ -24,7 +24,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.31.3",
     "react-icons": "^4.4.0",
-    "react-pdf": "^5.7.2",
+    "react-pdf": "^7.7.3",
     "styled-components": "^5.3.3",
     "styled-reset": "^4.4.1",
     "swiftlatex": "https://github.com/ducaale/SwiftLaTeX/releases/download/v1.0.0-experimental-9902734/swiftlatex-1.0.0-experimental-9902734.tgz"
