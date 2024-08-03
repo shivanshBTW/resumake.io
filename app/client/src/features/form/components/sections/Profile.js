@@ -40,7 +40,9 @@ type Props = {
   removeProfileSummary: () => void
 }
 
-function Profile({
+const summariesTemplates = [1, 10]
+
+function Profile ({
   basics,
   selectedTemplate,
   addProfileSummary,
@@ -48,59 +50,59 @@ function Profile({
 }: Props) {
   const { summaries } = basics
   return (
-    <Section heading="Your Personal Info">
+    <Section heading='Your Personal Info'>
       <LabeledInput
-        name="basics.name"
-        label="Full Name"
-        placeholder="John Smith"
+        name='basics.name'
+        label='Full Name'
+        placeholder='John Smith'
       />
       <LabeledInput
-        name="basics.email"
-        label="Email"
-        placeholder="johnsmith@gmail.com"
+        name='basics.email'
+        label='Email'
+        placeholder='johnsmith@gmail.com'
       />
       <LabeledInput
-        name="basics.phone"
-        label="Phone Number"
-        placeholder="(555) 123-4567"
+        name='basics.phone'
+        label='Phone Number'
+        placeholder='(555) 123-4567'
       />
       <LabeledInput
-        name="basics.location.address"
-        label="Location"
-        placeholder="New York, NY"
+        name='basics.location.address'
+        label='Location'
+        placeholder='New York, NY'
       />
       <LabeledInput
-        name="basics.website"
-        label="Link"
-        placeholder="mycoolportfolio.com/myname"
+        name='basics.website'
+        label='Link'
+        placeholder='mycoolportfolio.com/myname'
       />
-      {selectedTemplate === 10 && (
+      {summariesTemplates.includes(selectedTemplate) && (
         <React.Fragment>
           <Label>Summaries</Label>
           {summaries.map((summary, i) => (
             <Row key={i}>
               <MiniInput
-                type="text"
+                type='text'
                 name={`basics.summaries[${i}]`}
-                placeholder="Experienced Regional Manager with a demonstrated history of working in the paper supply industry."
-                component="input"
+                placeholder='Experienced Regional Manager with a demonstrated history of working in the paper supply industry.'
+                component='input'
               />
               <ButtonRow hidden={i !== summaries.length - 1}>
                 <RoundButton
                   inverted
                   disabled={i !== summaries.length - 1}
-                  type="button"
+                  type='button'
                   onClick={() => addProfileSummary()}
                 >
-                  <Icon type="add" />
+                  <Icon type='add' />
                 </RoundButton>
                 <RoundButton
                   inverted
                   disabled={summaries.length === 1}
-                  type="button"
+                  type='button'
                   onClick={() => removeProfileSummary()}
                 >
-                  <Icon type="remove" />
+                  <Icon type='remove' />
                 </RoundButton>
               </ButtonRow>
             </Row>
@@ -116,7 +118,7 @@ const mapActions = {
   removeProfileSummary
 }
 
-function mapState(state: State) {
+function mapState (state: State) {
   return {
     basics: state.form.resume.values.basics,
     selectedTemplate: state.form.resume.values.selectedTemplate
