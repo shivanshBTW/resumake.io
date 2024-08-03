@@ -10,13 +10,31 @@ type Template1Generator = Generator & {
   resumeDefinitions: () => string
 }
 
+const getSummary = (summaries = []) => {
+  let summarySection = ''
+  if (summaries) {
+    const lastSummaryIndex = summaries.length - 1
+    summarySection = source`
+        ${summaries.map((summary, i) => {
+          return stripIndent`
+            \\lineover
+              {${summary}}
+            \\vspace{1mm}
+            ${i === lastSummaryIndex ? '\\vspace{2mm}' : ''}
+            `
+        })}
+        `
+  }
+  return summarySection
+}
+
 const generator: Template1Generator = {
-  profileSection(basics) {
+  profileSection (basics) {
     if (!basics) {
       return ''
     }
 
-    const { name, email, phone, location, website } = basics
+    const { name, email, phone, location, website, summaries } = basics
     const address = (location && location.address) || ''
 
     let line1 = name ? `{\\Huge \\scshape {${name}}}` : ''
@@ -29,17 +47,19 @@ const generator: Template1Generator = {
       line2 += '\\\\'
     }
 
-    return stripIndent`
+    return (
+      stripIndent`
       %==== Profile ====%
       \\vspace*{-10pt}
       \\begin{center}
         ${line1}
         ${line2}
       \\end{center}
-    `
+    ` + getSummary(summaries) || ''
+    )
   },
 
-  educationSection(education, heading) {
+  educationSection (education, heading) {
     if (!education) {
       return ''
     }
@@ -103,7 +123,7 @@ const generator: Template1Generator = {
     `
   },
 
-  workSection(work, heading) {
+  workSection (work, heading) {
     if (!work) {
       return ''
     }
@@ -114,14 +134,8 @@ const generator: Template1Generator = {
       \\vspace{1mm}
 
       ${work.map(job => {
-        const {
-          company,
-          position,
-          location,
-          startDate,
-          endDate,
-          highlights
-        } = job
+        const { company, position, location, startDate, endDate, highlights } =
+          job
 
         let line1 = ''
         let line2 = ''
@@ -168,7 +182,7 @@ const generator: Template1Generator = {
     `
   },
 
-  skillsSection(skills, heading) {
+  skillsSection (skills, heading) {
     if (!skills) {
       return ''
     }
@@ -185,7 +199,7 @@ const generator: Template1Generator = {
     `
   },
 
-  projectsSection(projects, heading) {
+  projectsSection (projects, heading) {
     if (!projects) {
       return ''
     }
@@ -231,7 +245,7 @@ const generator: Template1Generator = {
     `
   },
 
-  awardsSection(awards, heading) {
+  awardsSection (awards, heading) {
     if (!awards) {
       return ''
     }
@@ -268,7 +282,7 @@ const generator: Template1Generator = {
     `
   },
 
-  resumeDefinitions() {
+  resumeDefinitions () {
     return stripIndent`
       %\\renewcommand{\\encodingdefault}{cg}
       %\\renewcommand{\\rmdefault}{lgrcmr}
@@ -287,6 +301,16 @@ const generator: Template1Generator = {
       \\newcommand{\\lineunder} {
           \\vspace*{-8pt} \\\\
           \\hspace*{-18pt} \\hrulefill \\\\
+      }
+
+      \\newcommand{\\lineoverspacing} {
+          \\vspace*{-20pt} \\\\
+          \\hspace*{-18pt} \\hrulefill \\\\
+      }
+
+      \\newcommand{\\lineover} {
+          {\\hspace*{-18pt}\\vspace*{10pt} \\textsc{}}
+          \\vspace*{-10pt} \\lineoverspacing
       }
 
       \\newcommand{\\header} [1] {
@@ -328,7 +352,7 @@ const generator: Template1Generator = {
   }
 }
 
-function template1(values: SanitizedValues) {
+function template1 (values: SanitizedValues) {
   const { headings = {} } = values
 
   return stripIndent`
