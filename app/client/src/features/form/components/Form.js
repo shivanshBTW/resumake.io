@@ -68,7 +68,16 @@ class Form extends Component<Props> {
   }
 
   onSubmit = (values: FormValues) => {
-    const { sections, generateResume } = this.props
+    const { generateResume } = this.props
+    const sections = [
+      'templates',
+      'profile',
+      'work',
+      'education',
+      'skills',
+      'projects',
+      'awards'
+    ]
     generateResume({ ...values, sections })
   }
 
@@ -90,7 +99,7 @@ class Form extends Component<Props> {
     const { handleSubmit } = this.props
     return (
       <StyledForm
-        id="resume-form"
+        id='resume-form'
         onSubmit={handleSubmit(this.onSubmit)}
         innerRef={form => (this.form = form)}
       >
@@ -98,18 +107,18 @@ class Form extends Component<Props> {
           <Switch>
             <Route
               exact
-              path="/generator"
-              render={() => <Redirect to="/generator/templates" />}
+              path='/generator'
+              render={() => <Redirect to='/generator/templates' />}
             />
-            <Route exact path="/generator/templates" component={Templates} />
-            <Route exact path="/generator/profile" component={Profile} />
-            <Route exact path="/generator/education" component={Education} />
-            <Route exact path="/generator/work" component={Work} />
-            <Route exact path="/generator/skills" component={Skills} />
-            <Route exact path="/generator/projects" component={Projects} />
-            <Route exact path="/generator/awards" component={Awards} />
-            <Route exact path="/generator/mobile-preview" component={Preview} />
-            <Route path="*" render={() => <h1 style={{ margin: 0 }}>404</h1>} />
+            <Route exact path='/generator/templates' component={Templates} />
+            <Route exact path='/generator/profile' component={Profile} />
+            <Route exact path='/generator/work' component={Work} />
+            <Route exact path='/generator/skills' component={Skills} />
+            <Route exact path='/generator/education' component={Education} />
+            <Route exact path='/generator/projects' component={Projects} />
+            <Route exact path='/generator/awards' component={Awards} />
+            <Route exact path='/generator/mobile-preview' component={Preview} />
+            <Route path='*' render={() => <h1 style={{ margin: 0 }}>404</h1>} />
           </Switch>
         </ScrollToTop>
       </StyledForm>

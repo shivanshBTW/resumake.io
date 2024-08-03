@@ -70,7 +70,16 @@ class SideNav extends Component<Props> {
   }
 
   render() {
-    const { sections } = this.props
+    // const { sections } = this.props
+    const sections = [
+      'templates',
+      'profile',
+      'work',
+      'education',
+      'skills',
+      'projects',
+      'awards'
+    ]
 
     return (
       <Aside>
@@ -78,12 +87,12 @@ class SideNav extends Component<Props> {
           <SortableList
             useDragHandle
             lockToContainerEdges
-            lockAxis="y"
+            lockAxis='y'
             items={sections}
             onSortStart={this.onSortStart}
             onSortEnd={this.onSortEnd}
           />
-          <PrimaryButton type="submit" form="resume-form">
+          <PrimaryButton type='submit' form='resume-form'>
             Make
           </PrimaryButton>
         </Nav>
