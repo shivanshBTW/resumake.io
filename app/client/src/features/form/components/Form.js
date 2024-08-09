@@ -74,8 +74,8 @@ class Form extends Component<Props> {
       'profile',
       'work',
       'education',
-      'skills',
       'projects',
+      'skills',
       'awards'
     ]
     generateResume({ ...values, sections })

@@ -76,8 +76,8 @@ class SideNav extends Component<Props> {
       'profile',
       'work',
       'education',
-      'skills',
       'projects',
+      'skills',
       'awards'
     ]
 
